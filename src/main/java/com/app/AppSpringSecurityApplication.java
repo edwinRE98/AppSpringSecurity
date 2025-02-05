@@ -8,6 +8,7 @@ import com.app.persistence.repositories.IUserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import java.util.List;
 import java.util.Set;
 
@@ -18,29 +19,30 @@ public class AppSpringSecurityApplication {
 		SpringApplication.run(AppSpringSecurityApplication.class, args);
 	}
 
+	@Bean
 	CommandLineRunner init(IUserRepository iUserRepository){
 		return args -> {
-			//Leer permiso
+			//Permiso de leer
 			PermissionEntity readPermision = PermissionEntity.builder()
 					.name("read")
 					.build();
 
-			//Crear permiso
+			//Permiso de crear
 			PermissionEntity createPermision = PermissionEntity.builder()
 					.name("create")
 					.build();
 
-			//Actualizar permiso
+			//Permiso de actualizar
 			PermissionEntity updatePermision = PermissionEntity.builder()
 					.name("update")
 					.build();
 
-			//Borrar permiso
+			//Permiso de borrar
 			PermissionEntity deletePermision = PermissionEntity.builder()
 					.name("delete")
 					.build();
 
-			//Crear rol
+			//Roles
 			RoleEntity admin = RoleEntity.builder()
 					.enumRole(EnumRole.admin)
 					.permissionList(Set.of(readPermision,createPermision,updatePermision,deletePermision))
@@ -48,10 +50,10 @@ public class AppSpringSecurityApplication {
 
 			RoleEntity standard = RoleEntity.builder()
 					.enumRole(EnumRole.standard)
-					.permissionList(Set.of(readPermision,createPermision))
+					.permissionList(Set.of(readPermision))
 					.build();
 
-			//Crear usuario
+			//Usuarios
 			UserEntity userSantiago = UserEntity.builder()
 					.username("Santiago")
 					.password("123")
@@ -77,5 +79,4 @@ public class AppSpringSecurityApplication {
 		};
 
 	}
-
 }
