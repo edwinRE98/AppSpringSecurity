@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +19,8 @@ public class AppSpringSecurityApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppSpringSecurityApplication.class, args);
+		//Usamos BCryptPasswordEncoder para encriptar una cadena.
+		//System.out.println(new BCryptPasswordEncoder().encode("123"));
 	}
 
 	@Bean
@@ -56,7 +60,7 @@ public class AppSpringSecurityApplication {
 			//Usuarios
 			UserEntity userSantiago = UserEntity.builder()
 					.username("Santiago")
-					.password("123")
+					.password("$2a$10$eVoQP3ydyACxxd1PqOzfyetc83XMqYKZsuOUdQpMx1iUF84lJB9f6")
 					.isEnabled(true)
 					.accountNoExpired(true)
 					.accountNoLocked(true)
@@ -66,7 +70,7 @@ public class AppSpringSecurityApplication {
 
 			UserEntity userDaniel = UserEntity.builder()
 					.username("Daniel")
-					.password("123")
+					.password("$2a$10$eVoQP3ydyACxxd1PqOzfyetc83XMqYKZsuOUdQpMx1iUF84lJB9f6")
 					.isEnabled(true)
 					.accountNoExpired(true)
 					.accountNoLocked(true)
@@ -79,4 +83,5 @@ public class AppSpringSecurityApplication {
 		};
 
 	}
+
 }
