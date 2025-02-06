@@ -1,28 +1,39 @@
 package com.app.controllers;
 
-import jakarta.annotation.security.PermitAll;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/test")
-//Denegar cualquier endpoint que no esté configurado
-@PreAuthorize("denyAll()")
+@RequestMapping("/api/security/users")
 public class TestAuthController {
 
-    @GetMapping("/hello")
-    //Este endpoint es publíco
-    @PreAuthorize("permitAll()")
-    public String test(){
-        return "Hello World";
+    //Endpoint de acceso público
+    @GetMapping("/getPublic")
+    public String getPublic(){
+        return "This endpoint is public.";
     }
 
-    @GetMapping("/security")
-    //El usuario que intente entrar a este endpoint "security" debe tener la autorización de "create"
-    @PreAuthorize("hasAuthority('create')")
-    public String testSecond(){
-        return "Spring Security";
+    //Endpoint de acceso para usuario administrador y usuario estándar
+    @GetMapping("/get")
+    public String standardUser(){
+        return "This user has permission to read.";
+    }
+
+    //Endpoint de acceso para usuario administrador
+    @PostMapping("/post")
+    public String postMessage(){
+        return "This user has permission to create.";
+    }
+
+    //Endpoint de acceso para usuario administrador
+    @PutMapping("/put")
+    public String putMessage(){
+        return "This user has permission to update.";
+    }
+
+    //Endpoint de acceso para usuario administrador
+    @DeleteMapping("/delete")
+    public String deleteMessage(){
+        return "This user has permission to delete.";
     }
 }
