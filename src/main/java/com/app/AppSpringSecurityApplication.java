@@ -21,6 +21,7 @@ public class AppSpringSecurityApplication {
 		SpringApplication.run(AppSpringSecurityApplication.class, args);
 		//Usamos BCryptPasswordEncoder para encriptar una cadena.
 		//System.out.println(new BCryptPasswordEncoder().encode("123"));
+		System.out.println("Hola Mundo");
 	}
 
 	//CommandLineRunner se usa para que todos los métodos que este dentro de este se ejecuten inmediatamente al arrancar el programa.
