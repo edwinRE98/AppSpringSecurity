@@ -9,8 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +21,7 @@ public class AppSpringSecurityApplication {
 		//System.out.println(new BCryptPasswordEncoder().encode("123"));
 	}
 
+	//CommandLineRunner se usa para que todos los métodos que este dentro de este se ejecuten inmediatamente al arrancar el programa.
 	@Bean
 	CommandLineRunner init(IUserRepository iUserRepository){
 		return args -> {

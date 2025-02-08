@@ -20,12 +20,14 @@ public class UserDetailServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //Busca los usuarios en la base de datos
         UserEntity userEntity = iUserRepository.findUserEntityByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Error user"));
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
         userEntity.getRoleList()
                 .forEach(role -> authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getEnumRole().name()))));
 
+        //Toma los permisos y los convierta en objetos de Spring security
         userEntity.getRoleList().stream()
                 .flatMap(role -> role.getPermissionList().stream())
                 .forEach(permission -> authorityList.add(new SimpleGrantedAuthority(permission.getName())));

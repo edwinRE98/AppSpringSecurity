@@ -1,5 +1,7 @@
 package com.app.config;
 
+//Configuración de Spring Security
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,13 +20,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+//EnableWebSecurity habilita las funciones de seguridad web.
 @EnableWebSecurity
+//EnableMethodSecurity habilita la seguridad a nivel de métodos.
 @EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                //Deshabilitamos la protección de csrf
                 .csrf(csrf -> csrf.disable())
                 //Usamos STATELESS para que cuando el tiempo de vida del token haya terminado, tendremos que hacer otra request para poder crear otra sesión.
                 //Usamos httpBasic porque solo usamos login de usuario y contraseña, y que funcione por defecto.
@@ -49,6 +54,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    //Inyectamos el objeto UserDetailsService
     public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
@@ -58,7 +64,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
+        //Usamos BCryptPasswordEncoder para encriptar las contraseñas.
         return new BCryptPasswordEncoder();
     }
-
 }

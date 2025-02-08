@@ -31,10 +31,12 @@ public class UserEntity {
     //Relación unidireccional
     //Con Set los datos listados no se pueden repetir
     //Con EAGER cargará todos los roles que tenga el usuario
+    //La relación es de muchos a muchos, ya que muchos usuarios puede tener muchos roles.
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     /*Ponemos como nombre "roles_users" a la tabla que se crea por la relación y
     colocamos el nombre del primer campo, el cual es el id del usuario y es racionado con el id del rol.*/
     @JoinTable(name = "roles_users", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    //Usamos set para que no se repitan los valores dentro de la lista.
     private Set<RoleEntity> roleList = new HashSet<>();
 
     //Getters y Setters
